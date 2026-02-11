@@ -19,28 +19,31 @@ resource "azurerm_monitor_scheduled_query_rules_alert_v2" "monitor_scheduled_que
   enabled                           = each.value.enabled
   workspace_alerts_storage_enabled  = each.value.workspace_alerts_storage_enabled
 
-  criteria {
-    dynamic "dimension" {
-      for_each = each.value.criteria.dimension != null ? [each.value.criteria.dimension] : []
-      content {
-        name     = dimension.value.name
-        operator = dimension.value.operator
-        values   = dimension.value.values
+  dynamic "criteria" {
+    for_each = each.value.criteria
+    content {
+      dynamic "dimension" {
+        for_each = criteria.value.dimension != null ? [criteria.value.dimension] : []
+        content {
+          name     = dimension.value.name
+          operator = dimension.value.operator
+          values   = dimension.value.values
+        }
       }
-    }
-    dynamic "failing_periods" {
-      for_each = each.value.criteria.failing_periods != null ? [each.value.criteria.failing_periods] : []
-      content {
-        minimum_failing_periods_to_trigger_alert = failing_periods.value.minimum_failing_periods_to_trigger_alert
-        number_of_evaluation_periods             = failing_periods.value.number_of_evaluation_periods
+      dynamic "failing_periods" {
+        for_each = criteria.value.failing_periods != null ? [criteria.value.failing_periods] : []
+        content {
+          minimum_failing_periods_to_trigger_alert = failing_periods.value.minimum_failing_periods_to_trigger_alert
+          number_of_evaluation_periods             = failing_periods.value.number_of_evaluation_periods
+        }
       }
+      metric_measure_column   = criteria.value.metric_measure_column
+      operator                = criteria.value.operator
+      query                   = criteria.value.query
+      resource_id_column      = criteria.value.resource_id_column
+      threshold               = criteria.value.threshold
+      time_aggregation_method = criteria.value.time_aggregation_method
     }
-    metric_measure_column   = each.value.criteria.metric_measure_column
-    operator                = each.value.criteria.operator
-    query                   = each.value.criteria.query
-    resource_id_column      = each.value.criteria.resource_id_column
-    threshold               = each.value.criteria.threshold
-    time_aggregation_method = each.value.criteria.time_aggregation_method
   }
 
   dynamic "action" {

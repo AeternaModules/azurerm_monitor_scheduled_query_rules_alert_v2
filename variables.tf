@@ -57,10 +57,10 @@ EOT
     description                       = optional(string)
     display_name                      = optional(string)
     target_resource_types             = optional(list(string))
-    auto_mitigation_enabled           = optional(bool, false)
-    enabled                           = optional(bool, true)
-    workspace_alerts_storage_enabled  = optional(bool, false)
-    criteria = object({
+    auto_mitigation_enabled           = optional(bool) # Default: false
+    enabled                           = optional(bool) # Default: true
+    workspace_alerts_storage_enabled  = optional(bool) # Default: false
+    criteria = list(object({
       dimension = optional(object({
         name     = string
         operator = string
@@ -76,7 +76,7 @@ EOT
       resource_id_column      = optional(string)
       threshold               = number
       time_aggregation_method = string
-    })
+    }))
     action = optional(object({
       action_groups     = optional(list(string))
       custom_properties = optional(map(string))
@@ -86,5 +86,13 @@ EOT
       type         = string
     }))
   }))
+  validation {
+    condition = alltrue([
+      for k, v in var.monitor_scheduled_query_rules_alert_v2s : (
+        length(v.criteria) >= 1
+      )
+    ])
+    error_message = "Each criteria list must contain at least 1 items"
+  }
 }
 
