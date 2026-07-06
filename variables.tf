@@ -37,6 +37,7 @@ Optional:
     - action (block):
         - action_groups (optional)
         - custom_properties (optional)
+        - email_subject (optional)
     - identity (block):
         - identity_ids (optional)
         - type (required)
@@ -80,6 +81,7 @@ EOT
     action = optional(object({
       action_groups     = optional(list(string))
       custom_properties = optional(map(string))
+      email_subject     = optional(string)
     }))
     identity = optional(object({
       identity_ids = optional(set(string))

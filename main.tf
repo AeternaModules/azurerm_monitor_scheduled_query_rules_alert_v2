@@ -51,6 +51,7 @@ resource "azurerm_monitor_scheduled_query_rules_alert_v2" "monitor_scheduled_que
     content {
       action_groups     = action.value.action_groups
       custom_properties = action.value.custom_properties
+      email_subject     = action.value.email_subject
     }
   }
 
