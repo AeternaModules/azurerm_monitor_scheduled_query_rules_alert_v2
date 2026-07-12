@@ -23,7 +23,7 @@ resource "azurerm_monitor_scheduled_query_rules_alert_v2" "monitor_scheduled_que
     for_each = each.value.criteria
     content {
       dynamic "dimension" {
-        for_each = criteria.value.dimension != null ? [criteria.value.dimension] : []
+        for_each = criteria.value.dimension != null ? criteria.value.dimension : []
         content {
           name     = dimension.value.name
           operator = dimension.value.operator

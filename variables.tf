@@ -62,11 +62,11 @@ EOT
     enabled                           = optional(bool) # Default: true
     workspace_alerts_storage_enabled  = optional(bool) # Default: false
     criteria = list(object({
-      dimension = optional(object({
+      dimension = optional(list(object({
         name     = string
         operator = string
         values   = list(string)
-      }))
+      })))
       failing_periods = optional(object({
         minimum_failing_periods_to_trigger_alert = number
         number_of_evaluation_periods             = number
