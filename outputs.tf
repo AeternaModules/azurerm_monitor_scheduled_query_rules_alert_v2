@@ -1,3 +1,7 @@
+output "monitor_scheduled_query_rules_alert_v2s_id" {
+  description = "Map of id values across all monitor_scheduled_query_rules_alert_v2s, keyed the same as var.monitor_scheduled_query_rules_alert_v2s"
+  value       = { for k, v in azurerm_monitor_scheduled_query_rules_alert_v2.monitor_scheduled_query_rules_alert_v2s : k => v.id }
+}
 output "monitor_scheduled_query_rules_alert_v2s_action" {
   description = "Map of action values across all monitor_scheduled_query_rules_alert_v2s, keyed the same as var.monitor_scheduled_query_rules_alert_v2s"
   value       = { for k, v in azurerm_monitor_scheduled_query_rules_alert_v2.monitor_scheduled_query_rules_alert_v2s : k => v.action }
