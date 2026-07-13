@@ -58,9 +58,9 @@ EOT
     description                       = optional(string)
     display_name                      = optional(string)
     target_resource_types             = optional(list(string))
-    auto_mitigation_enabled           = optional(bool) # Default: false
-    enabled                           = optional(bool) # Default: true
-    workspace_alerts_storage_enabled  = optional(bool) # Default: false
+    auto_mitigation_enabled           = optional(bool)
+    enabled                           = optional(bool)
+    workspace_alerts_storage_enabled  = optional(bool)
     criteria = list(object({
       dimension = optional(list(object({
         name     = string
