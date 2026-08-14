@@ -4,7 +4,7 @@ output "monitor_scheduled_query_rules_alert_v2s_id" {
 }
 output "monitor_scheduled_query_rules_alert_v2s_action" {
   description = "Map of action values across all monitor_scheduled_query_rules_alert_v2s, keyed the same as var.monitor_scheduled_query_rules_alert_v2s"
-  value       = { for k, v in azurerm_monitor_scheduled_query_rules_alert_v2.monitor_scheduled_query_rules_alert_v2s : k => v.action if v.action != null && length(v.action) > 0 }
+  value       = { for k, v in azurerm_monitor_scheduled_query_rules_alert_v2.monitor_scheduled_query_rules_alert_v2s : k => one(v.action) if v.action != null && length(v.action) > 0 }
 }
 output "monitor_scheduled_query_rules_alert_v2s_auto_mitigation_enabled" {
   description = "Map of auto_mitigation_enabled values across all monitor_scheduled_query_rules_alert_v2s, keyed the same as var.monitor_scheduled_query_rules_alert_v2s"
@@ -36,7 +36,7 @@ output "monitor_scheduled_query_rules_alert_v2s_evaluation_frequency" {
 }
 output "monitor_scheduled_query_rules_alert_v2s_identity" {
   description = "Map of identity values across all monitor_scheduled_query_rules_alert_v2s, keyed the same as var.monitor_scheduled_query_rules_alert_v2s"
-  value       = { for k, v in azurerm_monitor_scheduled_query_rules_alert_v2.monitor_scheduled_query_rules_alert_v2s : k => v.identity if v.identity != null && length(v.identity) > 0 }
+  value       = { for k, v in azurerm_monitor_scheduled_query_rules_alert_v2.monitor_scheduled_query_rules_alert_v2s : k => one(v.identity) if v.identity != null && length(v.identity) > 0 }
 }
 output "monitor_scheduled_query_rules_alert_v2s_is_a_legacy_log_analytics_rule" {
   description = "Map of is_a_legacy_log_analytics_rule values across all monitor_scheduled_query_rules_alert_v2s, keyed the same as var.monitor_scheduled_query_rules_alert_v2s"
